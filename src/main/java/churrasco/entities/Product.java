@@ -2,7 +2,6 @@ package churrasco.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import org.hibernate.validator.constraints.Length;
 import lombok.Data;
 
 @Entity
@@ -16,26 +15,26 @@ public class Product{
     private int id;
 
     @Column(name = "SKU", unique = true)
-    @Length(max = 11)
+    @Size(max = 11)
     @NotNull
     private long sku;
 
     @Column(name = "code", unique = true)
-    @Length(max = 11)
+    @Size(max = 11)
     @NotNull
     private int code;
 
     @Column(name = "name")
-    @Length(max = 40)
+    @Size(max = 40)
     @NotEmpty
     private String name;
 
     @Column(name = "description")
-    @Length(max = 255)
+    @Size(max = 255)
     private String description;
 
     @Column(name = "picture")
-    @Length(max = 255)
+    @Size(max = 255)
     private String picture;
 
     @Column(name = "price", precision = 10, scale = 2)
@@ -43,7 +42,7 @@ public class Product{
     private double price;
 
     @Column(name = "currency")
-    @Length(max = 3)
+    @Size(max = 3)
     private String currency;
 
 }

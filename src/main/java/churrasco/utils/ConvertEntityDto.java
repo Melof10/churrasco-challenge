@@ -1,4 +1,4 @@
-package churrasco.util;
+package churrasco.utils;
 
 import churrasco.dto.ProductDTO;
 import churrasco.entities.Product;

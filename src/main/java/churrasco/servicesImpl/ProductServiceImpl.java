@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import churrasco.repositories.IProductRepository;
 import churrasco.services.IProductService;
-import churrasco.util.ConvertEntityDto;
+import churrasco.utils.ConvertEntityDto;
 
 @Service
 public class ProductServiceImpl implements IProductService {
@@ -35,7 +35,7 @@ public class ProductServiceImpl implements IProductService {
         product.setPrice(productDTO.getPrice());
         product.setCurrency(productDTO.getCurrency());        
         Product productSaved = iProductRepository.save(product);
-        System.out.println(productDTO);
+        
         return productSaved;
     }
 
