@@ -1,10 +1,10 @@
 package churrasco.services;
 
+import churrasco.dto.ProductDTO;
 import java.util.List;
-import churrasco.entities.Product;
 
 public interface IProductService {
 
-    public List<Product> findAll() throws Exception;
+    public List<ProductDTO> findAll() throws Exception;
 
 }

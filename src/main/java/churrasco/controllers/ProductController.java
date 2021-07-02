@@ -1,5 +1,6 @@
 package churrasco.controllers;
 
+import churrasco.dto.ProductDTO;
 import churrasco.entities.Product;
 import churrasco.services.IProductService;
 import java.util.List;
@@ -16,9 +17,9 @@ public class ProductController {
     private IProductService iProductService;
     
     @GetMapping(value = "/all")
-    public ResponseEntity<List<Product>> findAll() throws Exception {
+    public ResponseEntity<List<ProductDTO>> findAll() throws Exception {
         try {
-            List<Product> products = iProductService.findAll();
+            List<ProductDTO> products = iProductService.findAll();
             
             if(!products.isEmpty())
                 return new ResponseEntity<>(products, HttpStatus.OK);
