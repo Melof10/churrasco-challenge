@@ -12,40 +12,31 @@ import churrasco.util.ConvertEntityDto;
 @Service
 public class ProductServiceImpl implements IProductService {
 
-    @Autowired    
+    @Autowired
     private IProductRepository iProductRepository;
-    
+
     @Autowired
     private ConvertEntityDto convertEntityDto;
 
     @Override
-    public List<ProductDTO> findAll() throws Exception {
-        try {                        
-            return convertEntityDto.convertToDTOProductEntity(iProductRepository.findAll());
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
-        }
+    public List<ProductDTO> findAll(){        
+        return convertEntityDto.convertToDTOProductEntity(iProductRepository.findAll());        
     }
 
     @Override
-    public Product save(ProductDTO productDTO) throws Exception {
-        try {
-            Product product = new Product();                        
-            product.setId(productDTO.getId());                                        
-            product.setSku(productDTO.getSku());
-            product.setCode(productDTO.getCode());
-            product.setName(productDTO.getName());
-            product.setDescription(productDTO.getDescription());
-            product.setPicture(productDTO.getPicture());
-            product.setPrice(productDTO.getPrice());
-            product.setCurrency(productDTO.getCurrency());
-            
-            iProductRepository.save(product);
-            
-            return product;
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
-        }
+    public Product save(ProductDTO productDTO){
+        Product product = new Product();
+        product.setId(productDTO.getId());
+        product.setSku(productDTO.getSku());
+        product.setCode(productDTO.getCode());
+        product.setName(productDTO.getName());
+        product.setDescription(productDTO.getDescription());
+        product.setPicture(productDTO.getPicture());
+        product.setPrice(productDTO.getPrice());
+        product.setCurrency(productDTO.getCurrency());        
+        Product productSaved = iProductRepository.save(product);
+        System.out.println(productDTO);
+        return productSaved;
     }
 
 }

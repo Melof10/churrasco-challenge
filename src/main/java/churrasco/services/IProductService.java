@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface IProductService {
 
-    public List<ProductDTO> findAll() throws Exception;
+    public List<ProductDTO> findAll();
     
-    public Product save(ProductDTO productDTO) throws Exception;        
+    public Product save(ProductDTO productDTO);        
 
 }

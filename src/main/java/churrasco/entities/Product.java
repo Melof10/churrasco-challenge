@@ -1,7 +1,5 @@
 package churrasco.entities;
 
-import java.io.Serializable;
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.validator.constraints.Length;
@@ -14,17 +12,17 @@ public class Product{
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "SKU", unique = true)
     @Length(max = 11)
-    @NotEmpty
+    @NotNull
     private long sku;
 
     @Column(name = "code", unique = true)
     @Length(max = 11)
-    @NotEmpty
+    @NotNull
     private int code;
 
     @Column(name = "name")
@@ -41,7 +39,7 @@ public class Product{
     private String picture;
 
     @Column(name = "price", precision = 10, scale = 2)
-    @NotEmpty
+    @NotNull
     private double price;
 
     @Column(name = "currency")
