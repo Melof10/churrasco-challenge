@@ -47,16 +47,19 @@ public class AuthController {
             return new ResponseEntity(new Message("Información inválida"), HttpStatus.BAD_REQUEST);        
         if(iUserServiceImpl.existsByUsername(newUserDTO.getUsername()))
             return new ResponseEntity(new Message("Username en uso"), HttpStatus.BAD_REQUEST);        
-        if(iUserServiceImpl.existsByEmail(newUserDTO.getUsername()))
+        if(iUserServiceImpl.existsByEmail(newUserDTO.getEmail()))
             return new ResponseEntity(new Message("Email en uso"), HttpStatus.BAD_REQUEST);
         
-        User user = new User(newUserDTO.getEmail(), newUserDTO.getUsername(), 
-                            newUserDTO.getFirst_name(), newUserDTO.getLast_name(), 
-                            passwordEncoder.encode(newUserDTO.getPassword()), 
-                            newUserDTO.getRole(), newUserDTO.getCreated(), 
-                            newUserDTO.getUpdated());                        
-                
+        User user = new User();                                        
+        user.setEmail(newUserDTO.getEmail());
+        user.setUsername(newUserDTO.getUsername());
+        user.setFirstName(newUserDTO.getFirst_name());
+        user.setLastName(newUserDTO.getLast_name());
+        user.setPassword(passwordEncoder.encode(newUserDTO.getPassword()));        
         user.setRole(newUserDTO.getRole());                    
+        user.setCreated(newUserDTO.getCreated());
+        user.setUpdated(newUserDTO.getUpdated());
+        
         iUserServiceImpl.save(user);
         
         return new ResponseEntity(new Message(("Usuario creado correctamente")), HttpStatus.CREATED);
