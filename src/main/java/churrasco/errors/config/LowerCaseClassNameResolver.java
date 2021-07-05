@@ -1,4 +1,4 @@
-package churrasco.config;
+package churrasco.errors.config;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.jsontype.impl.TypeIdResolverBase;

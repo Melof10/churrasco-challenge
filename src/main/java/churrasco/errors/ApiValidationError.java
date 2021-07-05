@@ -1,4 +1,4 @@
-package churrasco.messages;
+package churrasco.errors;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

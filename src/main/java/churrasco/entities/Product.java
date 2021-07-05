@@ -14,35 +14,29 @@ public class Product{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "SKU", unique = true)
-    @Size(max = 11)
+    @Column(name = "SKU", unique = true)    
     @NotNull
     private long sku;
 
-    @Column(name = "code", unique = true)
-    @Size(max = 11)
+    @Column(name = "code", unique = true)    
     @NotNull
     private int code;
 
-    @Column(name = "name")
-    @Size(max = 40)
-    @NotEmpty
+    @Column(name = "name")    
+    @NotBlank
     private String name;
 
-    @Column(name = "description")
-    @Size(max = 255)
+    @Column(name = "description")    
     private String description;
 
-    @Column(name = "picture")
-    @Size(max = 255)
+    @Column(name = "picture")    
     private String picture;
 
-    @Column(name = "price", precision = 10, scale = 2)
-    @NotNull
+    @Column(name = "price")
+    @NotNull(message="El precio es obligatorio")
     private double price;
 
-    @Column(name = "currency")
-    @Size(max = 3)
+    @Column(name = "currency")    
     private String currency;
 
 }

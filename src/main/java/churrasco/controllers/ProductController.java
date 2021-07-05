@@ -1,14 +1,13 @@
 package churrasco.controllers;
 
+import churrasco.errors.config.EntityNotFoundException;
 import churrasco.dto.ProductDTO;
 import churrasco.entities.Product;
 import churrasco.services.IProductService;
-import java.net.URI;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,17 +34,8 @@ public class ProductController {
     }
     
     @PostMapping(value = "/save")
-    public ResponseEntity<Product> create(@Valid @RequestBody ProductDTO productDTO) throws Exception{                
-        try {
-            Product productSaved = iProductService.save(productDTO);
-            
-            if(productSaved != null)
-                return new ResponseEntity<Product>(productSaved, HttpStatus.OK);
-            else
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public Product create(@Valid @RequestBody ProductDTO productDTO) throws EntityNotFoundException{                        
+        return iProductService.save(productDTO);
     }        
     
 }

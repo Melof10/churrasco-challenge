@@ -1,4 +1,4 @@
-package churrasco.messages;
+package churrasco.errors;
 
 public abstract class ApiSubError {
 

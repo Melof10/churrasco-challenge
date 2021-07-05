@@ -1,6 +1,6 @@
 package churrasco.controllers;
 
-import churrasco.messages.Message;
+import churrasco.errors.Message;
 import churrasco.dto.JwtDTO;
 import churrasco.dto.LoginUserDTO;
 import churrasco.dto.NewUserDTO;
