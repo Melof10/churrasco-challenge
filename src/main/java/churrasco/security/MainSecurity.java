@@ -1,5 +1,6 @@
 package churrasco.security;
 
+import churrasco.entities.User;
 import churrasco.security.jwt.JwtEntryPoint;
 import churrasco.security.jwt.JwtTokenFilter;
 import churrasco.servicesImpl.UserDetailsServiceImpl;
@@ -26,7 +27,7 @@ public class MainSecurity extends WebSecurityConfigurerAdapter{
     private UserDetailsServiceImpl userDetailsServiceImpl;
     
     @Autowired
-    private JwtEntryPoint jwtEntryPoint;
+    private JwtEntryPoint jwtEntryPoint;        
         
     @Bean
     public JwtTokenFilter jwtTokenFilter(){
@@ -59,13 +60,13 @@ public class MainSecurity extends WebSecurityConfigurerAdapter{
         http.cors().and().csrf().disable()
                 .authorizeRequests()                                                
                 .antMatchers("/auth/**").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().hasRole("ADMIN")
                 .and()
                 .exceptionHandling().authenticationEntryPoint(jwtEntryPoint)
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         
         http.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-    }
+    }        
     
 }
