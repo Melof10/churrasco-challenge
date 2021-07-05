@@ -2,8 +2,8 @@ package churrasco.controllers;
 
 import churrasco.messages.Message;
 import churrasco.dto.JwtDTO;
-import churrasco.dto.LoginUser;
-import churrasco.dto.NewUser;
+import churrasco.dto.LoginUserDTO;
+import churrasco.dto.NewUserDTO;
 import churrasco.entities.User;
 import churrasco.security.jwt.JwtProvider;
 import churrasco.services.UserService;
@@ -42,23 +42,22 @@ public class AuthController {
     private JwtProvider jwtProvider;
     
     @PostMapping(value = "/register")
-    public ResponseEntity<?> register(@Valid @RequestBody NewUser newUser, BindingResult bindingResult){
+    public ResponseEntity<?> register(@Valid @RequestBody NewUserDTO newUserDTO, BindingResult bindingResult){
         if(bindingResult.hasErrors())
             return new ResponseEntity(new Message("Información inválida"), HttpStatus.BAD_REQUEST);        
-        if(userService.existsByUsername(newUser.getUsername()))
+        if(userService.existsByUsername(newUserDTO.getUsername()))
             return new ResponseEntity(new Message("Username en uso"), HttpStatus.BAD_REQUEST);        
-        if(userService.existsByEmail(newUser.getUsername()))
+        if(userService.existsByEmail(newUserDTO.getUsername()))
             return new ResponseEntity(new Message("Email en uso"), HttpStatus.BAD_REQUEST);
         
-        User user = new User(newUser.getEmail(), newUser.getUsername(), 
-                            newUser.getFirstName(), newUser.getLastName(), 
-                            passwordEncoder.encode(newUser.getPassword()), 
-                            newUser.getRole(), newUser.getCreated(), 
-                            newUser.getUpdated());                
-        String rol;
+        User user = new User(newUserDTO.getEmail(), newUserDTO.getUsername(), 
+                            newUserDTO.getFirstName(), newUserDTO.getLastName(), 
+                            passwordEncoder.encode(newUserDTO.getPassword()), 
+                            newUserDTO.getRole(), newUserDTO.getCreated(), 
+                            newUserDTO.getUpdated());                        
         
-        if(newUser.getRole().contains("admin"))
-            user.setRole(newUser.getRole());
+        if(newUserDTO.getRole().contains("admin"))
+            user.setRole(newUserDTO.getRole());
         
         userService.save(user);
         
@@ -66,12 +65,12 @@ public class AuthController {
     }
     
     @PostMapping(value = "/login")
-    public ResponseEntity<JwtDTO> login(@Valid @RequestBody LoginUser loginUser, BindingResult bindingResult){
+    public ResponseEntity<JwtDTO> login(@Valid @RequestBody LoginUserDTO loginUserDTO, BindingResult bindingResult){
         if(bindingResult.hasErrors())
             return new ResponseEntity(new Message("Información inválida"), HttpStatus.BAD_REQUEST);        
         
         Authentication authentication 
-                = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUser.getUsername(), loginUser.getPassword()));        
+                = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUserDTO.getUsername(), loginUserDTO.getPassword()));        
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtProvider.generateToken(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
