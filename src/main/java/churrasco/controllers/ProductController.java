@@ -19,18 +19,8 @@ public class ProductController {
     private IProductService iProductService;
     
     @GetMapping(value = "/all")
-    public ResponseEntity<List<ProductDTO>> findAll() throws Exception {
-        try {
-            List<ProductDTO> products = iProductService.findAll();
-            
-            if(!products.isEmpty())
-                return new ResponseEntity<>(products, HttpStatus.OK);
-            else
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-                        
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public List<ProductDTO> findAll() throws EntityNotFoundException{
+        return iProductService.findAll();
     }
     
     @PostMapping(value = "/save")
