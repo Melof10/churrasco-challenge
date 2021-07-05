@@ -1,6 +1,6 @@
 package churrasco.security.jwt;
 
-import churrasco.security.services.UserDetailsServiceImpl;
+import churrasco.servicesImpl.UserDetailsServiceImpl;
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

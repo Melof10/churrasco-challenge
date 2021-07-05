@@ -1,4 +1,4 @@
-package churrasco.security.dto;
+package churrasco.dto;
 
 import java.sql.Date;
 import javax.validation.constraints.Email;

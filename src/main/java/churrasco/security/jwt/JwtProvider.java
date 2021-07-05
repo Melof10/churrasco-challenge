@@ -1,6 +1,6 @@
 package churrasco.security.jwt;
 
-import churrasco.security.entities.MainUser;
+import churrasco.entities.MainUser;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;

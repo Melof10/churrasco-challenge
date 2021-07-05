@@ -1,7 +1,8 @@
-package churrasco.security.services;
+package churrasco.servicesImpl;
 
-import churrasco.security.entities.MainUser;
-import churrasco.security.entities.User;
+import churrasco.entities.MainUser;
+import churrasco.entities.User;
+import churrasco.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

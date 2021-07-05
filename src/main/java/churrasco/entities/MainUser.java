@@ -1,4 +1,4 @@
-package churrasco.security.entities;
+package churrasco.entities;
 
 import java.sql.Date;
 import java.util.ArrayList;

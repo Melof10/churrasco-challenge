@@ -2,7 +2,7 @@ package churrasco.security;
 
 import churrasco.security.jwt.JwtEntryPoint;
 import churrasco.security.jwt.JwtTokenFilter;
-import churrasco.security.services.UserDetailsServiceImpl;
+import churrasco.servicesImpl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,12 +27,12 @@ public class MainSecurity extends WebSecurityConfigurerAdapter{
     
     @Autowired
     private JwtEntryPoint jwtEntryPoint;
-    
+        
     @Bean
     public JwtTokenFilter jwtTokenFilter(){
         return new JwtTokenFilter();
     }
-    
+        
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -41,12 +41,25 @@ public class MainSecurity extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsServiceImpl).passwordEncoder(passwordEncoder());
+    }        
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
+    
+    @Override
+    protected AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
+    }        
     
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/products/**")
+                .hasRole("admin")                
                 .antMatchers("/auth/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -55,17 +68,6 @@ public class MainSecurity extends WebSecurityConfigurerAdapter{
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         
         http.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-    }
-
-    @Override
-    protected AuthenticationManager authenticationManager() throws Exception {
-        return super.authenticationManager(); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
     }
     
 }

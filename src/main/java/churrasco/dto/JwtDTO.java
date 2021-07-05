@@ -1,4 +1,4 @@
-package churrasco.security.dto;
+package churrasco.dto;
 
 import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;

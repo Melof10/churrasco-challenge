@@ -1,4 +1,4 @@
-package churrasco.security.dto;
+package churrasco.dto;
 
 import javax.validation.constraints.NotBlank;
 import lombok.Data;
