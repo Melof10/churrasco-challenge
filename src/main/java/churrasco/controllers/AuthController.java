@@ -55,10 +55,8 @@ public class AuthController {
                             passwordEncoder.encode(newUserDTO.getPassword()), 
                             newUserDTO.getRole(), newUserDTO.getCreated(), 
                             newUserDTO.getUpdated());                        
-        
-        if(newUserDTO.getRole().contains("admin"))
-            user.setRole(newUserDTO.getRole());
-        
+                
+        user.setRole(newUserDTO.getRole());                    
         userService.save(user);
         
         return new ResponseEntity(new Message(("Usuario creado correctamente")), HttpStatus.CREATED);
@@ -69,12 +67,18 @@ public class AuthController {
         if(bindingResult.hasErrors())
             return new ResponseEntity(new Message("Información inválida"), HttpStatus.BAD_REQUEST);        
         
-        Authentication authentication 
-                = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUserDTO.getUsername(), loginUserDTO.getPassword()));        
+        Authentication authentication = null;                
+        
+        if(loginUserDTO.getUsername() != null)            
+            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUserDTO.getUsername(), loginUserDTO.getPassword()));        
+        else
+            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUserDTO.getEmail(), loginUserDTO.getPassword()));        
+        
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtProvider.generateToken(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         JwtDTO jwtDTO = new JwtDTO(jwt, userDetails.getUsername(), userDetails.getAuthorities());
+                
         return new ResponseEntity(jwtDTO, HttpStatus.OK);
     }   
     

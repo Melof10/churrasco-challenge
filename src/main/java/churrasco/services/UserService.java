@@ -16,7 +16,11 @@ public class UserService {
     
     public Optional<User> getByUsername(String username){
         return iUserRepository.findByUsername(username);
-    }        
+    }
+    
+    public Optional<User> getByEmail(String email){
+        return iUserRepository.findByEmail(email);
+    }
     
     public boolean existsByUsername(String username){
         return iUserRepository.existsByUsername(username);

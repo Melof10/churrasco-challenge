@@ -57,9 +57,7 @@ public class MainSecurity extends WebSecurityConfigurerAdapter{
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/products/**")
-                .hasRole("admin")                
+                .authorizeRequests()                                                
                 .antMatchers("/auth/**").permitAll()
                 .anyRequest().authenticated()
                 .and()

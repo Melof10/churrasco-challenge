@@ -17,8 +17,14 @@ public class UserDetailsServiceImpl implements UserDetailsService{
     
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userService.getByUsername(username).get();
+        User user = null;       
+        
+        if(!username.contains("@"))
+            user = userService.getByUsername(username).get();
+        else
+            user = userService.getByEmail(username).get();
+                        
         return MainUser.build(user);
-    }
+    }            
     
 }
