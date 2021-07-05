@@ -33,7 +33,7 @@ public class ProductServiceImpl implements IProductService {
         product.setDescription(productDTO.getDescription());
         product.setPicture(productDTO.getPicture());
         product.setPrice(productDTO.getPrice());
-        product.setCurrency(productDTO.getCurrency());        
+        product.setCurrency(productDTO.getCurrency());                  
         Product productSaved = iProductRepository.save(product);
         
         return productSaved;

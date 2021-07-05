@@ -51,7 +51,7 @@ public class AuthController {
             return new ResponseEntity(new Message("Email en uso"), HttpStatus.BAD_REQUEST);
         
         User user = new User(newUserDTO.getEmail(), newUserDTO.getUsername(), 
-                            newUserDTO.getFirstName(), newUserDTO.getLastName(), 
+                            newUserDTO.getFirst_name(), newUserDTO.getLast_name(), 
                             passwordEncoder.encode(newUserDTO.getPassword()), 
                             newUserDTO.getRole(), newUserDTO.getCreated(), 
                             newUserDTO.getUpdated());                        

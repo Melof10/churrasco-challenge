@@ -31,7 +31,7 @@ public class UserServiceImpl implements IUserService{
         return iUserRepository.existsByEmail(email);
     }
     
-    public void save(User user){
+    public void save(User user){        
         iUserRepository.save(user);
     }
     
