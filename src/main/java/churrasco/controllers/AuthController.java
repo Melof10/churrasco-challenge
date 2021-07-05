@@ -6,7 +6,6 @@ import churrasco.dto.LoginUserDTO;
 import churrasco.dto.NewUserDTO;
 import churrasco.entities.User;
 import churrasco.security.jwt.JwtProvider;
-import churrasco.services.UserService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import churrasco.servicesImpl.UserServiceImpl;
 
 @RestController
 @RequestMapping(value = "/auth")
@@ -36,7 +36,7 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
     
     @Autowired
-    private UserService userService;
+    private UserServiceImpl iUserServiceImpl;
     
     @Autowired
     private JwtProvider jwtProvider;
@@ -45,9 +45,9 @@ public class AuthController {
     public ResponseEntity<?> register(@Valid @RequestBody NewUserDTO newUserDTO, BindingResult bindingResult){
         if(bindingResult.hasErrors())
             return new ResponseEntity(new Message("Información inválida"), HttpStatus.BAD_REQUEST);        
-        if(userService.existsByUsername(newUserDTO.getUsername()))
+        if(iUserServiceImpl.existsByUsername(newUserDTO.getUsername()))
             return new ResponseEntity(new Message("Username en uso"), HttpStatus.BAD_REQUEST);        
-        if(userService.existsByEmail(newUserDTO.getUsername()))
+        if(iUserServiceImpl.existsByEmail(newUserDTO.getUsername()))
             return new ResponseEntity(new Message("Email en uso"), HttpStatus.BAD_REQUEST);
         
         User user = new User(newUserDTO.getEmail(), newUserDTO.getUsername(), 
@@ -57,7 +57,7 @@ public class AuthController {
                             newUserDTO.getUpdated());                        
                 
         user.setRole(newUserDTO.getRole());                    
-        userService.save(user);
+        iUserServiceImpl.save(user);
         
         return new ResponseEntity(new Message(("Usuario creado correctamente")), HttpStatus.CREATED);
     }
